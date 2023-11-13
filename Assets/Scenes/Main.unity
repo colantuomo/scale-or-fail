@@ -398,7 +398,7 @@ MonoBehaviour:
   _mainCam: {fileID: 1251099713}
   _scaleLeft: {fileID: 2133713306}
   _scaleRight: {fileID: 1500590833}
-  _centralPoint: {fileID: 0}
+  _centralPoint: {fileID: 1761278608}
   _leaveSpot: {fileID: 511051250}
 --- !u!1 &202390539
 GameObject:
@@ -780,7 +780,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.102529645, y: 0.004021015, z: -0.00041446087, w: 0.9947218}
+  m_LocalRotation: {x: 0.102529645, y: 0.0040210155, z: -0.00041446093, w: 0.9947218}
   m_LocalPosition: {x: 4.8588715, y: 3.5285783, z: 9.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1283,7 +1283,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251099711}
-  m_LocalRotation: {x: 0.102529645, y: 0.004021015, z: -0.00041446087, w: 0.9947218}
+  m_LocalRotation: {x: 0.102529645, y: 0.0040210155, z: -0.00041446093, w: 0.9947218}
   m_LocalPosition: {x: 4.8588715, y: 3.5285785, z: 9.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
