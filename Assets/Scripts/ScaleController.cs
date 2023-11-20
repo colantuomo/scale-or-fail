@@ -33,7 +33,7 @@ public class ScaleController : MonoBehaviour
 
     private void ScaleKeyboardManager()
     {
-        if (_clientLeft == null || _clientRight == null) return;
+        if (_clientLeft == null && _clientRight == null) return;
 
         var scaleManager = _isLookingToScaleLeft ? _scaleManagerLeft : _scaleManagerRight;
 
@@ -94,6 +94,7 @@ public class ScaleController : MonoBehaviour
             if (_isLookingToScaleLeft && _clientLeft != null)
             {
                 GameEvents.Singleton.UpdateClientsLines(true);
+                GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClient(), _scaleManagerLeft.GetScaleCode());
                 _clientLeft.LeaveStore(_leaveSpot.position);
                 _clientLeft = null;
                 _isLookingToScaleLeft = false;
@@ -111,6 +112,7 @@ public class ScaleController : MonoBehaviour
             else if (!_isLookingToScaleLeft && _clientRight != null)
             {
                 GameEvents.Singleton.UpdateClientsLines(false);
+                GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClient(), _scaleManagerRight.GetScaleCode());
                 _clientRight.LeaveStore(_leaveSpot.position);
                 _clientRight = null;
                 _isLookingToScaleLeft = true;
