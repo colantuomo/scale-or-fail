@@ -18,6 +18,9 @@ public class ClientBehavior : MonoBehaviour
     private NavMeshAgent _agent;
     private Renderer _walkablePlane;
 
+    [SerializeField]
+    private ClientSO _client;
+
     private bool _isShopping = true;
     private ClientStates _currentState = ClientStates.Shopping;
 
@@ -83,5 +86,10 @@ public class ClientBehavior : MonoBehaviour
         _currentState = ClientStates.Leaving;
         _agent.SetDestination(leaveSpot);
         Destroy(gameObject, 10f);
+    }
+
+    public ClientSO GetClient()
+    {
+        return _client;
     }
 }

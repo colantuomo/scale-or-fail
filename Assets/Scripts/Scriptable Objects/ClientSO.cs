@@ -6,6 +6,6 @@ using UnityEngine;
 public class ClientSO : ScriptableObject
 {
     public string Name;
-    public List<FruitSO> Fruits;
+    public FruitSO Fruit;
     public GameObject Model;
 }

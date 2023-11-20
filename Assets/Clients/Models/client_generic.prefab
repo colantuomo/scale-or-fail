@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsToFindNewSpot: 5
+  _client: {fileID: 11400000, guid: 85277e59152598d4192347a31b19f8fd, type: 2}
 --- !u!195 &-614607490964194244
 NavMeshAgent:
   m_ObjectHideFlags: 0
