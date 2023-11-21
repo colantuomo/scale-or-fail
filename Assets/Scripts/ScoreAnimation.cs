@@ -10,7 +10,7 @@ public struct TextField
     public string text;
 }
 
-public class uiLeanTween : MonoBehaviour
+public class ScoreAnimation : MonoBehaviour
 {
     [SerializeField] GameObject scorePanel;
     public TextField[] fields;
