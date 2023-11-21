@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class ClientBehavior : MonoBehaviour
     private NavMeshAgent _agent;
     private Renderer _walkablePlane;
 
+    [SerializeField]
+    private ClientSO _client;
+
     private bool _isShopping = true;
     private ClientStates _currentState = ClientStates.Shopping;
 
@@ -32,6 +36,7 @@ public class ClientBehavior : MonoBehaviour
         yield return new WaitForSeconds(TimeToFinishShopping());
         _isShopping = false;
         _currentState = ClientStates.WaitingOnLine;
+        transform.DORotate(Vector3.down, 1f);
         GameEvents.Singleton.ClientStopShopping(this);
     }
 
@@ -55,8 +60,9 @@ public class ClientBehavior : MonoBehaviour
 
     private Vector3 GetRandomPositionInPlane()
     {
-        var x = Random.Range(-_walkablePlane.bounds.size.x, _walkablePlane.bounds.size.x);
-        var z = Random.Range(-_walkablePlane.bounds.size.z, _walkablePlane.bounds.size.z);
+        var plane = _walkablePlane.GetComponent<Renderer>();
+        var x = Random.Range(plane.bounds.min.x, plane.bounds.max.x);
+        var z = Random.Range(plane.bounds.min.z, plane.bounds.max.z);
         return new Vector3(x, transform.position.y, z);
     }
 
@@ -80,5 +86,10 @@ public class ClientBehavior : MonoBehaviour
         _currentState = ClientStates.Leaving;
         _agent.SetDestination(leaveSpot);
         Destroy(gameObject, 10f);
+    }
+
+    public ClientSO GetClient()
+    {
+        return _client;
     }
 }

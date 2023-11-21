@@ -80,7 +80,7 @@ public class DayOfWeekManager : MonoBehaviour
         _clientsInLeftLine.ForEach((client) =>
         {
             client.SetDestination(destination);
-            destination = new Vector3(destination.x, destination.y, destination.z + 5);
+            destination = new Vector3(destination.x, destination.y, destination.z + 10);
         });
     }
 
@@ -90,7 +90,7 @@ public class DayOfWeekManager : MonoBehaviour
         _clientsInRightLine.ForEach((client) =>
         {
             client.SetDestination(destination);
-            destination = new Vector3(destination.x, destination.y, destination.z + 5);
+            destination = new Vector3(destination.x, destination.y, destination.z + 10);
         });
     }
 
@@ -112,11 +112,6 @@ public class DayOfWeekManager : MonoBehaviour
         var max = 5;
         var rnd = Random.Range(0, max);
         return rnd < max / 2;
-    }
-
-    private bool HasClient()
-    {
-        return Physics.CheckSphere(_leftClientLine.position, .2f, LayerMask.GetMask("Client"));
     }
 
     private Vector3 GetRandomPositionInPlane()
