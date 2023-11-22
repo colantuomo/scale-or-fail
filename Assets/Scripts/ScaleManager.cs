@@ -31,4 +31,9 @@ public class ScaleManager : MonoBehaviour
         _keyboardScreen.text = _keyboardScreen.text.Remove(_keyboardScreen.text.Length - 1, 1);
     }
 
+    public string GetScaleCode()
+    {
+        return _keyboardScreen.text;
+    }
+
 }
