@@ -31,4 +31,10 @@ public class GameEvents : MonoBehaviour
     {
         OnUpdateClientsLines?.Invoke(isLeft);
     }
+
+    public event Action<ClientSO, string>OnUpdateLevelScore;
+    public void UpdateLevelScore(ClientSO client, string text)
+    {
+        OnUpdateLevelScore?.Invoke(client, text);
+    }
 }
