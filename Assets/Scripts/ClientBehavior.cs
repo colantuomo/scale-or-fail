@@ -15,6 +15,9 @@ public class ClientBehavior : MonoBehaviour
 {
     [SerializeField]
     private float _secondsToFindNewSpot = 5f;
+    [SerializeField]
+    private float _maxSecondsOnLine = 10f;
+    private float _currentSecondsOnLine;
     private NavMeshAgent _agent;
     private Renderer _walkablePlane;
 
@@ -26,9 +29,15 @@ public class ClientBehavior : MonoBehaviour
 
     private void Start()
     {
+        _currentSecondsOnLine = 0f;
         _agent = GetComponent<NavMeshAgent>();
         StartCoroutine(ChangeDestinationRoutine());
         StartCoroutine(FinishShopping());
+    }
+
+    private void Update()
+    {
+        _currentSecondsOnLine += Time.time;
     }
 
     IEnumerator FinishShopping()
@@ -91,5 +100,14 @@ public class ClientBehavior : MonoBehaviour
     public ClientSO GetClient()
     {
         return _client;
+    }
+
+    public bool ReachedMaxWaitTime()
+    {
+        if (_currentSecondsOnLine >= _maxSecondsOnLine)
+        {
+            return true;
+        }
+        return false;
     }
 }
