@@ -7,10 +7,10 @@ public class MainMenuSceneLoader : MonoBehaviour
 {
     private GameObject fadeOutObject;
 
-    public void LoadMainGameplayScene()
-    {
-        StartCoroutine(_LoadMainGameplaySceneAnimation());
-    }
+    // public void LoadMainGameplayScene()
+    // {
+    //     StartCoroutine(_LoadMainGameplaySceneAnimation());
+    // }
 
     private IEnumerator _LoadMainGameplaySceneAnimation()
     {
@@ -22,7 +22,8 @@ public class MainMenuSceneLoader : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
-    public void QuitGame(){
+    public void QuitGame()
+    {
         Application.Quit();
     }
 }

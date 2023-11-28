@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// enum ListPanelStates
-// {
-//     Open,
-//     Closed,
-// }
-
 public class PauseAnimation : MonoBehaviour
 {
     [SerializeField] GameObject PausePanel;
@@ -58,7 +52,9 @@ public class PauseAnimation : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        _state = ListPanelStates.Closed;
+        PausePanel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void Quit()
