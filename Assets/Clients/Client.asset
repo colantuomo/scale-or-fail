@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Client
   m_EditorClassIdentifier: 
   Name: "Jos\xE9"
-  Fruits:
-  - {fileID: 11400000, guid: e29cc2406b35baf43b0638e929baaf0a, type: 2}
+  Fruit: {fileID: 11400000, guid: e29cc2406b35baf43b0638e929baaf0a, type: 2}
   Model: {fileID: 921498372277933178, guid: 1e8350b49bb8c1e48b4056858ae2e7c2, type: 3}
