@@ -11,6 +11,7 @@ public class ScaleController : MonoBehaviour
 
     [SerializeField]
     private Transform _centralPoint;
+    [SerializeField]
     private ClientBehavior _clientLeft, _clientRight;
 
     [SerializeField]
@@ -84,6 +85,20 @@ public class ScaleController : MonoBehaviour
 
     private void HandleFinishShopping()
     {
+        if (_clientRight != null)
+        {
+            if (_clientRight.ReachedMaxWaitTime())
+            {
+                HandleRightClientLeavingLine();
+            }
+        }
+        if (_clientLeft != null)
+        {
+            if (_clientLeft.ReachedMaxWaitTime())
+            {
+                HandleLeftClientLeavingLine();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             if (_clientLeft == null && _clientRight == null)
@@ -93,40 +108,50 @@ public class ScaleController : MonoBehaviour
 
             if (_isLookingToScaleLeft && _clientLeft != null)
             {
-                GameEvents.Singleton.UpdateClientsLines(true);
-                GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClient(), _scaleManagerLeft.GetScaleCode());
-                _clientLeft.LeaveStore(_leaveSpot.position);
-                _clientLeft = null;
-                _isLookingToScaleLeft = false;
-                _scaleManagerLeft.Clear();
-
-                if (_clientRight == null)
-                {
-                    _mainCam.LookAt = _centralPoint;
-                }
-                else
-                {
-                    _mainCam.LookAt = _scaleManagerRight.transform;
-                }
+                HandleLeftClientLeavingLine();
             }
             else if (!_isLookingToScaleLeft && _clientRight != null)
             {
-                GameEvents.Singleton.UpdateClientsLines(false);
-                GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClient(), _scaleManagerRight.GetScaleCode());
-                _clientRight.LeaveStore(_leaveSpot.position);
-                _clientRight = null;
-                _isLookingToScaleLeft = true;
-                _scaleManagerRight.Clear();
-
-                if (_clientLeft == null)
-                {
-                    _mainCam.LookAt = _centralPoint;
-                }
-                else
-                {
-                    _mainCam.LookAt = _scaleManagerLeft.transform;
-                }
+                HandleRightClientLeavingLine();
             }
+        }
+    }
+
+    private void HandleLeftClientLeavingLine()
+    {
+        GameEvents.Singleton.UpdateClientsLines(true);
+        GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClient(), _scaleManagerLeft.GetScaleCode(), _clientLeft.GetClientTimeSpentOnLine());
+        _clientLeft.LeaveStore(_leaveSpot.position);
+        _clientLeft = null;
+        _isLookingToScaleLeft = false;
+        _scaleManagerLeft.Clear();
+
+        if (_clientRight == null)
+        {
+            _mainCam.LookAt = _centralPoint;
+        }
+        else
+        {
+            _mainCam.LookAt = _scaleManagerRight.transform;
+        }
+    }
+
+    private void HandleRightClientLeavingLine()
+    {
+        GameEvents.Singleton.UpdateClientsLines(false);
+        GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClient(), _scaleManagerRight.GetScaleCode(), _clientRight.GetClientTimeSpentOnLine());
+        _clientRight.LeaveStore(_leaveSpot.position);
+        _clientRight = null;
+        _isLookingToScaleLeft = true;
+        _scaleManagerRight.Clear();
+
+        if (_clientLeft == null)
+        {
+            _mainCam.LookAt = _centralPoint;
+        }
+        else
+        {
+            _mainCam.LookAt = _scaleManagerLeft.transform;
         }
     }
 
