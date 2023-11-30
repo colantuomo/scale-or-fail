@@ -8,6 +8,7 @@ public enum ClientStates
 {
     Shopping,
     WaitingOnLine,
+    WaitingOnScale,
     Leaving,
 }
 
@@ -40,10 +41,15 @@ public class ClientBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (IsWaitingOnLine())
+        if (_currentState == ClientStates.WaitingOnScale)
         {
             _currentSecondsOnLine += Time.deltaTime;
         }
+    }
+
+    public void SetClientOnScaleState()
+    {
+        _currentState = ClientStates.WaitingOnScale;
     }
 
     IEnumerator FinishShopping()
