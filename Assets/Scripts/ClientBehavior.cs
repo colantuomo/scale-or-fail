@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 
 public enum ClientStates
 {
@@ -13,10 +14,11 @@ public enum ClientStates
 
 public class ClientBehavior : MonoBehaviour
 {
-    [SerializeField]
+    
     private float _secondsToFindNewSpot = 5f;
     private NavMeshAgent _agent;
     private Renderer _walkablePlane;
+    private Animator _anim;
 
     [SerializeField]
     private ClientSO _client;
@@ -26,9 +28,22 @@ public class ClientBehavior : MonoBehaviour
 
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         StartCoroutine(ChangeDestinationRoutine());
         StartCoroutine(FinishShopping());
+    }
+
+    private void Update()
+    {
+        if (_agent.velocity.z == 0)
+        {
+            StopWalking();
+        }
+        else
+        {
+            StartWalking();
+        }
     }
 
     IEnumerator FinishShopping()
@@ -85,11 +100,22 @@ public class ClientBehavior : MonoBehaviour
     {
         _currentState = ClientStates.Leaving;
         _agent.SetDestination(leaveSpot);
+        StartWalking();
         Destroy(gameObject, 10f);
     }
 
     public ClientSO GetClient()
     {
         return _client;
+    }
+
+    private void StopWalking()
+    {
+        _anim.SetBool("isWalking", false);
+    }
+
+    private void StartWalking()
+    {
+        _anim.SetBool("isWalking", true);
     }
 }

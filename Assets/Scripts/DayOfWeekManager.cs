@@ -15,6 +15,10 @@ public class DayOfWeekManager : MonoBehaviour
     private Transform _leftClientLine, _rightClientLine;
     [SerializeField]
     private LineSpotBehavior _leftSpot, _rightSpot;
+    [SerializeField]
+    private Transform _clientSpawnSpot;
+    [SerializeField]
+    private float _lineOffset = 10f;
 
     private List<ClientBehavior> _clientsInLeftLine = new();
     private List<ClientBehavior> _clientsInRightLine = new();
@@ -50,14 +54,12 @@ public class DayOfWeekManager : MonoBehaviour
     {
         _scaleController.SetClientLeft(clientBehavior);
         _clientsInLeftLine.Remove(clientBehavior);
-        //print($"Left Lane: {clientBehavior.transform.name}");
     }
 
     private void RightSpotOnClientIsOnScale(ClientBehavior clientBehavior)
     {
         _scaleController.SetClientRight(clientBehavior);
         _clientsInRightLine.Remove(clientBehavior);
-        //print($"Right Lane: {clientBehavior.transform.name}");
     }
 
     private void OnClientStopShopping(ClientBehavior clientBehavior)
@@ -80,7 +82,7 @@ public class DayOfWeekManager : MonoBehaviour
         _clientsInLeftLine.ForEach((client) =>
         {
             client.SetDestination(destination);
-            destination = new Vector3(destination.x, destination.y, destination.z + 10);
+            destination = new Vector3(destination.x, destination.y, destination.z + _lineOffset);
         });
     }
 
@@ -90,19 +92,21 @@ public class DayOfWeekManager : MonoBehaviour
         _clientsInRightLine.ForEach((client) =>
         {
             client.SetDestination(destination);
-            destination = new Vector3(destination.x, destination.y, destination.z + 10);
+            destination = new Vector3(destination.x, destination.y, destination.z + _lineOffset);
         });
     }
 
     private void InstantiateClients()
     {
+        var spot = _clientSpawnSpot.position;
         _currentDay.Clients.ForEach((client) =>
         {
-            var cli = Instantiate(client.Model, GetRandomPositionInPlane(), client.Model.transform.rotation);
+            var cli = Instantiate(client.Model, spot, client.Model.transform.rotation);
             if (cli.TryGetComponent(out ClientBehavior clientBehavior))
             {
                 clientBehavior.SetWalkablePlane(_walkablePlane);
             }
+            spot = new Vector3(spot.x + 5f, spot.y, spot.z);
         });
 
     }

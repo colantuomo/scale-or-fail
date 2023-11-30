@@ -15,6 +15,7 @@ public class ScaleController : MonoBehaviour
 
     [SerializeField]
     private ScaleManager _scaleManagerLeft, _scaleManagerRight;
+    private Transform _currentLeftFruit, _currentRightFruit;
 
     [SerializeField]
     private Transform _leaveSpot;
@@ -99,6 +100,7 @@ public class ScaleController : MonoBehaviour
                 _clientLeft = null;
                 _isLookingToScaleLeft = false;
                 _scaleManagerLeft.Clear();
+                _currentLeftFruit.GetComponent<Rigidbody>().AddForce(Vector3.up - Vector3.right * 8f, ForceMode.Impulse);
 
                 if (_clientRight == null)
                 {
@@ -117,6 +119,7 @@ public class ScaleController : MonoBehaviour
                 _clientRight = null;
                 _isLookingToScaleLeft = true;
                 _scaleManagerRight.Clear();
+                _currentRightFruit.GetComponent<Rigidbody>().AddForce(Vector3.up - Vector3.left * 8f, ForceMode.Impulse);
 
                 if (_clientLeft == null)
                 {
@@ -163,7 +166,7 @@ public class ScaleController : MonoBehaviour
             _isLookingToScaleLeft = true;
             _mainCam.LookAt = _scaleManagerLeft.transform;
         }
-
+        InstantiateLeftFruit(client.GetClient().Fruit);
         _clientLeft = client;
     }
 
@@ -176,7 +179,17 @@ public class ScaleController : MonoBehaviour
             _isLookingToScaleLeft = false;
             _mainCam.LookAt = _scaleManagerRight.transform;
         };
-
+        InstantiateRightFruit(client.GetClient().Fruit);
         _clientRight = client;
     }
+    private void InstantiateLeftFruit(FruitSO fruit)
+    {
+        _currentLeftFruit = _scaleManagerLeft.PutFruitOnScaleSpot(fruit);
+    }
+
+    private void InstantiateRightFruit(FruitSO fruit)
+    {
+        _currentRightFruit = _scaleManagerRight.PutFruitOnScaleSpot(fruit);
+    }
+
 }

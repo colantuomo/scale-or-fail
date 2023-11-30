@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d996b41ad6ca8f643857dbeb72f9e851, type: 3}
+  m_Name: Client 3
+  m_EditorClassIdentifier: 
+  Name: Maguinha
+  Fruit: {fileID: 11400000, guid: 2926ead76fa440d43bebaf6b1cf10b02, type: 2}
+  Model: {fileID: 1573224450906467247, guid: 1614943f622827046a2fa5b5ebb22795, type: 3}

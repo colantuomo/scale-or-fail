@@ -9,6 +9,8 @@ public class ScaleManager : MonoBehaviour
     private TMP_Text _keyboardScreen;
     [SerializeField]
     private int _maxDigits = 5;
+    [SerializeField]
+    private Transform _fruitSpot;
 
 
     public void AddDigitToKeyboardScreen(string digit)
@@ -34,6 +36,11 @@ public class ScaleManager : MonoBehaviour
     public string GetScaleCode()
     {
         return _keyboardScreen.text;
+    }
+
+    public Transform PutFruitOnScaleSpot(FruitSO fruit)
+    {
+        return Instantiate(fruit.Model, _fruitSpot.position, Quaternion.identity).transform;
     }
 
 }
