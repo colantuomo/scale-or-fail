@@ -50,6 +50,7 @@ public class DayOfWeekManager : MonoBehaviour
     {
         _scaleController.SetClientLeft(clientBehavior);
         _clientsInLeftLine.Remove(clientBehavior);
+        clientBehavior.SetClientOnScaleState();
         //print($"Left Lane: {clientBehavior.transform.name}");
     }
 
@@ -57,6 +58,7 @@ public class DayOfWeekManager : MonoBehaviour
     {
         _scaleController.SetClientRight(clientBehavior);
         _clientsInRightLine.Remove(clientBehavior);
+        clientBehavior.SetClientOnScaleState();
         //print($"Right Lane: {clientBehavior.transform.name}");
     }
 

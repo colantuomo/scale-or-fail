@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int levelScore;
-    public int totalScore;
+    public float levelScore;
+    public float totalScore;
+    private float _maxClientScore = 500f;
+    private float _minClientScore = 0f;
+    private float _minTimeToReduceScore = 10f;
+    private float _maxTimeToReduceScore = 100f;
+    private float _rangeToReduceScore;
 
     private void Start()
     {
         SubscribeEvents();
-        levelScore = 0;
-        totalScore = 0;
+        levelScore = 0f;
+        totalScore = 0f;
+        _rangeToReduceScore = _maxTimeToReduceScore - _minTimeToReduceScore;
     }
 
     private void SubscribeEvents()
@@ -17,18 +23,19 @@ public class ScoreManager : MonoBehaviour
         GameEvents.Singleton.OnUpdateLevelScore += OnUpdateLevelScore;
     }
 
-    void OnUpdateLevelScore(ClientSO client, string typedCode){
-        int integerScore = 0;
-        int.TryParse(typedCode, out integerScore);
-        if (client.Fruit.Code == integerScore)
+    void OnUpdateLevelScore(ClientSO client, string typedCode, float timeSpentOnLine){
+        int integerCode = 0;
+        int.TryParse(typedCode, out integerCode);
+        if (client.Fruit.Code == integerCode)
         {
-            levelScore += 1;
+            float timeSpentLoosingPoints = Mathf.Max(0, timeSpentOnLine - _minTimeToReduceScore);
+            levelScore += Mathf.Lerp(_maxClientScore, _minClientScore, timeSpentLoosingPoints / _rangeToReduceScore);
         }
     }
 
     void OnUpdateTotalScore()
     {
         totalScore += levelScore;
-        levelScore = 0;
+        levelScore = 0f;
     }
 }
