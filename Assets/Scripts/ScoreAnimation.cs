@@ -23,7 +23,10 @@ public class ScoreAnimation : MonoBehaviour
         {
             field.textBox.text = string.Empty;
         }
-
+        fields[0].text = PlayerPrefs.GetFloat("precision").ToString("0") + "%";
+        fields[1].text = PlayerPrefs.GetFloat("avg").ToString("0.00 seconds");
+        fields[2].text = PlayerPrefs.GetFloat("score").ToString("0");
+        fields[3].text = PlayerPrefs.GetFloat("totalScore").ToString("0");
         LeanTween.moveLocal(scorePanel, new Vector3(0f, 0f, 0f), 0.7f).setDelay(.5f).setEase(LeanTweenType.easeOutCirc).setOnComplete(ShowScore);
     }
 
