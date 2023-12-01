@@ -25,8 +25,6 @@ public class ScaleController : MonoBehaviour
     private bool _isLookingToScaleLeft = true;
 
     [SerializeField]
-    private bool _hasNumericKeyboard = true;
-    [SerializeField]
     private ParticleSystem _puffFX, _fireworkFX;
 
     void Update()
@@ -42,14 +40,8 @@ public class ScaleController : MonoBehaviour
 
         var scaleManager = _isLookingToScaleLeft ? _scaleManagerLeft : _scaleManagerRight;
 
-        if (_hasNumericKeyboard)
-        {
-            HandleScaleNumericKeyboard(scaleManager);
-        }
-        else
-        {
-            HandleScaleKeyboard(scaleManager);
-        }
+        HandleScaleNumericKeyboard(scaleManager);
+        HandleScaleKeyboard(scaleManager);
 
         //if (Input.GetKeyDown(KeyCode.Space)) scaleManager.Clear();
         if (Input.GetKeyDown(KeyCode.Backspace)) scaleManager.RemoveLastDigit();
