@@ -126,6 +126,7 @@ public class ScaleController : MonoBehaviour
         {
             _scaleManagerLeft.PrintFeedback("failed");
             GameEvents.Singleton.UpdateLevelStatistics(_clientLeft.GetClientTimeSpentOnLine(), false);
+            GameEvents.Singleton.FailCodeTyping();
         }
         _clientLeft.LeaveStore(_leaveSpotL.position);
         _clientLeft = null;
@@ -155,6 +156,7 @@ public class ScaleController : MonoBehaviour
         {
             _scaleManagerRight.PrintFeedback("failed");
             GameEvents.Singleton.UpdateLevelStatistics(_clientRight.GetClientTimeSpentOnLine(), false);
+            GameEvents.Singleton.FailCodeTyping();
         }
         _clientRight.LeaveStore(_leaveSpotR.position);
         _clientRight = null;

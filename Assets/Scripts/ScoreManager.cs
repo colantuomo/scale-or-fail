@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     private float _maxClientScore = 500f;
     private float _minClientScore = 0f;
     private float _minTimeToReduceScore = 2f;
-    private float _maxTimeToReduceScore = 8f;
+    private float _maxTimeToReduceScore = 20f;
     private float _maxPrecisionScore = 10000f;
     private float _maxAvgTimeScore = 10000f;
     private float _rangeToReduceScore;
@@ -39,6 +39,7 @@ public class ScoreManager : MonoBehaviour
     private void SubscribeEvents()
     {
         GameEvents.Singleton.OnUpdateLevelScore += OnUpdateLevelScore;
+        GameEvents.Singleton.OnUpdateLevelStatistics += OnUpdateLevelStatistics;
         GameEvents.Singleton.OnFailCodeTyping += OnFailCodeTyping;
     }
 
