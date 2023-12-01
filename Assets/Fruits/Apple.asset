@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d26e069b3715a8419c867b7ea6023a2, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  Name: "Ma\xE7a"
+  Name: Apple
   Code: 99002
   Model: {fileID: 919132149155446097, guid: b041a43ad9d171d49b3dfdae23e4ca5a, type: 3}

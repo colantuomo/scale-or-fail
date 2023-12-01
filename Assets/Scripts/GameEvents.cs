@@ -43,4 +43,16 @@ public class GameEvents : MonoBehaviour
     {
         OnUpdateLevelStatistics?.Invoke(timeSpentOnLine, isCodeCorrect);
     }
+
+    public event Action OnFailCodeTyping;
+    public void FailCodeTyping()
+    {
+        OnFailCodeTyping?.Invoke();
+    }
+
+    public event Action OnPlayerHasLost;
+    public void PlayerHasLost()
+    {
+        OnPlayerHasLost?.Invoke();
+    }
 }

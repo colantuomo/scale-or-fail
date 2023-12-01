@@ -12,7 +12,7 @@ public class ScaleController : MonoBehaviour
 
     [SerializeField]
     private Transform _centralPoint;
-    [SerializeField]
+    //[SerializeField]
     private ClientBehavior _clientLeft, _clientRight;
 
     [SerializeField]
@@ -24,8 +24,6 @@ public class ScaleController : MonoBehaviour
 
     private bool _isLookingToScaleLeft = true;
 
-    [SerializeField]
-    private bool _hasNumericKeyboard = true;
     [SerializeField]
     private ParticleSystem _puffFX, _fireworkFX;
 
@@ -42,14 +40,8 @@ public class ScaleController : MonoBehaviour
 
         var scaleManager = _isLookingToScaleLeft ? _scaleManagerLeft : _scaleManagerRight;
 
-        if (_hasNumericKeyboard)
-        {
-            HandleScaleNumericKeyboard(scaleManager);
-        }
-        else
-        {
-            HandleScaleKeyboard(scaleManager);
-        }
+        HandleScaleNumericKeyboard(scaleManager);
+        HandleScaleKeyboard(scaleManager);
 
         //if (Input.GetKeyDown(KeyCode.Space)) scaleManager.Clear();
         if (Input.GetKeyDown(KeyCode.Backspace)) scaleManager.RemoveLastDigit();
@@ -134,6 +126,7 @@ public class ScaleController : MonoBehaviour
         {
             _scaleManagerLeft.PrintFeedback("failed");
             GameEvents.Singleton.UpdateLevelStatistics(_clientLeft.GetClientTimeSpentOnLine(), false);
+            GameEvents.Singleton.FailCodeTyping();
         }
         _clientLeft.LeaveStore(_leaveSpotL.position);
         _clientLeft = null;
@@ -163,6 +156,7 @@ public class ScaleController : MonoBehaviour
         {
             _scaleManagerRight.PrintFeedback("failed");
             GameEvents.Singleton.UpdateLevelStatistics(_clientRight.GetClientTimeSpentOnLine(), false);
+            GameEvents.Singleton.FailCodeTyping();
         }
         _clientRight.LeaveStore(_leaveSpotR.position);
         _clientRight = null;
