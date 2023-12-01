@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d26e069b3715a8419c867b7ea6023a2, type: 3}
   m_Name: Pear
   m_EditorClassIdentifier: 
-  Name: "Ma\xE7a"
-  Code: 89933
+  Name: Pear
+  Code: 50098
   Model: {fileID: 5691584631313609626, guid: 01229e86eefab334f96e244dd2160118, type: 3}

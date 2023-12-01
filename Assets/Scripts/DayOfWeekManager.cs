@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DayOfWeekManager : MonoBehaviour
 {
@@ -33,9 +34,15 @@ public class DayOfWeekManager : MonoBehaviour
     {
         GameEvents.Singleton.OnClientStopShopping += OnClientStopShopping;
         GameEvents.Singleton.OnUpdateClientsLines += OnUpdateClientsLines;
+        GameEvents.Singleton.OnPlayerHasLost += OnPlayerHasLost;
 
         _leftSpot.OnClientIsOnScale += LeftSpotOnClientIsOnScale;
         _rightSpot.OnClientIsOnScale += RightSpotOnClientIsOnScale;
+    }
+
+    private void OnPlayerHasLost()
+    {
+        ScenesManager.Singleton.GoToScoreScreen();
     }
 
     private void OnUpdateClientsLines(bool isLeft)
@@ -128,6 +135,11 @@ public class DayOfWeekManager : MonoBehaviour
         var x = Random.Range(plane.bounds.min.x, plane.bounds.max.x);
         var z = Random.Range(plane.bounds.min.z, plane.bounds.max.z);
         return new Vector3(x, transform.position.y, z);
+    }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene("Monday");
     }
 
 }

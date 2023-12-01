@@ -37,4 +37,16 @@ public class GameEvents : MonoBehaviour
     {
         OnUpdateLevelScore?.Invoke(client, text, timeSpentOnLine);
     }
+
+    public event Action OnFailCodeTyping;
+    public void FailCodeTyping()
+    {
+        OnFailCodeTyping?.Invoke();
+    }
+
+    public event Action OnPlayerHasLost;
+    public void PlayerHasLost()
+    {
+        OnPlayerHasLost?.Invoke();
+    }
 }

@@ -12,7 +12,7 @@ public class ScaleController : MonoBehaviour
 
     [SerializeField]
     private Transform _centralPoint;
-    [SerializeField]
+    //[SerializeField]
     private ClientBehavior _clientLeft, _clientRight;
 
     [SerializeField]
@@ -34,6 +34,11 @@ public class ScaleController : MonoBehaviour
         SwitchScaleControl();
         HandleFinishShopping();
         ScaleKeyboardManager();
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            print("Pressed B");
+            GameEvents.Singleton.FailCodeTyping();
+        }
     }
 
     private void ScaleKeyboardManager()

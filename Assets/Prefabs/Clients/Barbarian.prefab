@@ -2550,6 +2550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d22a8d265ee1a4090c1b6a79e82aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxSecondsOnLine: 100
+  _currentSecondsOnLine: 0
   _client: {fileID: 11400000, guid: bbdf6126a1724b9458b0f98742f4f4c1, type: 2}
 --- !u!195 &7203663626102185579
 NavMeshAgent:

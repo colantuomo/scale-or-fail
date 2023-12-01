@@ -10,6 +10,9 @@ public class ScoreManager : MonoBehaviour
     private float _maxTimeToReduceScore = 100f;
     private float _rangeToReduceScore;
 
+    [SerializeField]
+    private Lifebar _lifebar;
+
     private void Start()
     {
         SubscribeEvents();
@@ -21,6 +24,13 @@ public class ScoreManager : MonoBehaviour
     private void SubscribeEvents()
     {
         GameEvents.Singleton.OnUpdateLevelScore += OnUpdateLevelScore;
+        GameEvents.Singleton.OnFailCodeTyping += OnFailCodeTyping;
+    }
+
+    private void OnFailCodeTyping()
+    {
+        print("Fail Code!");
+        _lifebar.DecreaseByOne();
     }
 
     void OnUpdateLevelScore(ClientSO client, string typedCode, float timeSpentOnLine){
