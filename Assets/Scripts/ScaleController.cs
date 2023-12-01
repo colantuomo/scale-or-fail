@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,14 +17,17 @@ public class ScaleController : MonoBehaviour
 
     [SerializeField]
     private ScaleManager _scaleManagerLeft, _scaleManagerRight;
+    private Transform _currentLeftFruit, _currentRightFruit;
 
     [SerializeField]
-    private Transform _leaveSpot;
+    private Transform _leaveSpotL, _leaveSpotR;
 
     private bool _isLookingToScaleLeft = true;
 
     [SerializeField]
     private bool _hasNumericKeyboard = true;
+    [SerializeField]
+    private ParticleSystem _puffFX, _fireworkFX;
 
     void Update()
     {
@@ -121,7 +125,7 @@ public class ScaleController : MonoBehaviour
     {
         GameEvents.Singleton.UpdateClientsLines(true);
         GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClient(), _scaleManagerLeft.GetScaleCode(), _clientLeft.GetClientTimeSpentOnLine());
-        _clientLeft.LeaveStore(_leaveSpot.position);
+        _clientLeft.LeaveStore(_leaveSpotL.position);
         _clientLeft = null;
         _isLookingToScaleLeft = false;
         _scaleManagerLeft.Clear();
@@ -140,7 +144,7 @@ public class ScaleController : MonoBehaviour
     {
         GameEvents.Singleton.UpdateClientsLines(false);
         GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClient(), _scaleManagerRight.GetScaleCode(), _clientRight.GetClientTimeSpentOnLine());
-        _clientRight.LeaveStore(_leaveSpot.position);
+        _clientRight.LeaveStore(_leaveSpotR.position);
         _clientRight = null;
         _isLookingToScaleLeft = true;
         _scaleManagerRight.Clear();
@@ -188,7 +192,7 @@ public class ScaleController : MonoBehaviour
             _isLookingToScaleLeft = true;
             _mainCam.LookAt = _scaleManagerLeft.transform;
         }
-
+        InstantiateLeftFruit(client.GetClient().Fruit);
         _clientLeft = client;
     }
 
@@ -201,7 +205,21 @@ public class ScaleController : MonoBehaviour
             _isLookingToScaleLeft = false;
             _mainCam.LookAt = _scaleManagerRight.transform;
         };
-
+        InstantiateRightFruit(client.GetClient().Fruit);
         _clientRight = client;
     }
+    private void InstantiateLeftFruit(FruitSO fruit)
+    {
+        _currentLeftFruit = _scaleManagerLeft.PutFruitOnScaleSpot(fruit);
+        LeanTween.scale(_currentLeftFruit.gameObject, _currentLeftFruit.localScale * 2f, 0.5f).setEaseShake();
+        Instantiate(_puffFX, _currentLeftFruit.position, Quaternion.identity);
+    }
+
+    private void InstantiateRightFruit(FruitSO fruit)
+    {
+        _currentRightFruit = _scaleManagerRight.PutFruitOnScaleSpot(fruit);
+        LeanTween.scale(_currentRightFruit.gameObject, _currentRightFruit.localScale * 2f, 0.5f).setEaseShake();
+        Instantiate(_puffFX, _currentRightFruit.position, Quaternion.identity);
+    }
+
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 
 public enum ClientStates
 {
@@ -14,7 +15,7 @@ public enum ClientStates
 
 public class ClientBehavior : MonoBehaviour
 {
-    [SerializeField]
+
     private float _secondsToFindNewSpot = 5f;
     [SerializeField]
     private float _maxSecondsOnLine = 100f;
@@ -22,6 +23,7 @@ public class ClientBehavior : MonoBehaviour
     private float _currentSecondsOnLine;
     private NavMeshAgent _agent;
     private Renderer _walkablePlane;
+    private Animator _anim;
 
     [SerializeField]
     private ClientSO _client;
@@ -31,6 +33,7 @@ public class ClientBehavior : MonoBehaviour
 
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         _currentSecondsOnLine = 0f;
         _maxSecondsOnLine = 100f;
         _secondsToFindNewSpot = 5f;
@@ -41,10 +44,20 @@ public class ClientBehavior : MonoBehaviour
 
     private void Update()
     {
+        if (_agent.velocity.z == 0)
+        {
+            StopWalking();
+        }
+        else
+        {
+            StartWalking();
+        }
+
         if (_currentState == ClientStates.WaitingOnScale)
         {
             _currentSecondsOnLine += Time.deltaTime;
         }
+
     }
 
     public void SetClientOnScaleState()
@@ -106,6 +119,7 @@ public class ClientBehavior : MonoBehaviour
     {
         _currentState = ClientStates.Leaving;
         _agent.SetDestination(leaveSpot);
+        StartWalking();
         Destroy(gameObject, 10f);
     }
 
@@ -114,6 +128,15 @@ public class ClientBehavior : MonoBehaviour
         return _client;
     }
 
+    private void StopWalking()
+    {
+        _anim.SetBool("isWalking", false);
+    }
+
+    private void StartWalking()
+    {
+        _anim.SetBool("isWalking", true);
+    }
     public bool ReachedMaxWaitTime()
     {
         if (_currentSecondsOnLine >= _maxSecondsOnLine)
@@ -123,7 +146,8 @@ public class ClientBehavior : MonoBehaviour
         return false;
     }
 
-    public float GetClientTimeSpentOnLine(){
+    public float GetClientTimeSpentOnLine()
+    {
         return Mathf.Min(_maxSecondsOnLine, _currentSecondsOnLine);
     }
 }

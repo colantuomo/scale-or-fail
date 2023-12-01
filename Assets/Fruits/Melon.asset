@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d26e069b3715a8419c867b7ea6023a2, type: 3}
+  m_Name: Melon
+  m_EditorClassIdentifier: 
+  Name: "Ma\xE7a"
+  Code: 90023
+  Model: {fileID: 2219419520127022999, guid: e1711c584f34ea04da8e5c3f555f74f3, type: 3}
