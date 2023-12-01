@@ -124,7 +124,15 @@ public class ScaleController : MonoBehaviour
     private void HandleLeftClientLeavingLine()
     {
         GameEvents.Singleton.UpdateClientsLines(true);
-        GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClient(), _scaleManagerLeft.GetScaleCode(), _clientLeft.GetClientTimeSpentOnLine());
+        if (TypedCodeEqualsFruitCode(_scaleManagerLeft.GetScaleCode(), _clientLeft.GetClient().Fruit.Code))
+        {
+            _scaleManagerLeft.PrintFeedback("success");
+            GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClientTimeSpentOnLine());
+        }
+        else
+        {
+            _scaleManagerLeft.PrintFeedback("failed");
+        }
         _clientLeft.LeaveStore(_leaveSpotL.position);
         _clientLeft = null;
         _isLookingToScaleLeft = false;
@@ -143,7 +151,15 @@ public class ScaleController : MonoBehaviour
     private void HandleRightClientLeavingLine()
     {
         GameEvents.Singleton.UpdateClientsLines(false);
-        GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClient(), _scaleManagerRight.GetScaleCode(), _clientRight.GetClientTimeSpentOnLine());
+        if (TypedCodeEqualsFruitCode(_scaleManagerRight.GetScaleCode(), _clientRight.GetClient().Fruit.Code))
+        {
+            _scaleManagerRight.PrintFeedback("success");
+            GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClientTimeSpentOnLine());
+        }
+        else
+        {
+            _scaleManagerRight.PrintFeedback("failed");
+        }
         _clientRight.LeaveStore(_leaveSpotR.position);
         _clientRight = null;
         _isLookingToScaleLeft = true;
@@ -222,4 +238,14 @@ public class ScaleController : MonoBehaviour
         Instantiate(_puffFX, _currentRightFruit.position, Quaternion.identity);
     }
 
+    private bool TypedCodeEqualsFruitCode(string typedCode, int fruitCode)
+    {
+        int integerCode = 0;
+        int.TryParse(typedCode, out integerCode);
+        if (integerCode == fruitCode)
+        {
+            return true;
+        }
+        return false;
+    }
 }
