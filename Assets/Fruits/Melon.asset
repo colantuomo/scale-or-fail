@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d26e069b3715a8419c867b7ea6023a2, type: 3}
   m_Name: Melon
   m_EditorClassIdentifier: 
-  Name: "Ma\xE7a"
-  Code: 90023
+  Name: Melon
+  Code: 48092
   Model: {fileID: 2219419520127022999, guid: e1711c584f34ea04da8e5c3f555f74f3, type: 3}

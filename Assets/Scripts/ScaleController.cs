@@ -12,7 +12,7 @@ public class ScaleController : MonoBehaviour
 
     [SerializeField]
     private Transform _centralPoint;
-    [SerializeField]
+    //[SerializeField]
     private ClientBehavior _clientLeft, _clientRight;
 
     [SerializeField]

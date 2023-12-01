@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Score.unity
     guid: fe11da631b128ac478dfe3b127240e89
+  - enabled: 1
+    path: Assets/Scenes/Monday.unity
+    guid: ffa2182490eb9d54b994e9f01afb5391
   m_configObjects: {}

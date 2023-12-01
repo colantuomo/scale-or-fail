@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d26e069b3715a8419c867b7ea6023a2, type: 3}
   m_Name: Banana
   m_EditorClassIdentifier: 
-  Name: "Ma\xE7a"
+  Name: Banana
   Code: 13236
   Model: {fileID: 1451173146109465495, guid: 64e0bfbfbeb4be344beea0a4fa400cef, type: 3}
