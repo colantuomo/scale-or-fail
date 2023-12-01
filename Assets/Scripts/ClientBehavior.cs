@@ -18,7 +18,7 @@ public class ClientBehavior : MonoBehaviour
 
     private float _secondsToFindNewSpot = 5f;
     [SerializeField]
-    private float _maxSecondsOnLine = 100f;
+    private float _maxSecondsOnLine = 8f;
     [SerializeField]
     private float _currentSecondsOnLine;
     private NavMeshAgent _agent;
@@ -35,7 +35,7 @@ public class ClientBehavior : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         _currentSecondsOnLine = 0f;
-        _maxSecondsOnLine = 100f;
+        _maxSecondsOnLine = 8f;
         _secondsToFindNewSpot = 5f;
         _agent = GetComponent<NavMeshAgent>();
         StartCoroutine(ChangeDestinationRoutine());

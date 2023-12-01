@@ -37,4 +37,10 @@ public class GameEvents : MonoBehaviour
     {
         OnUpdateLevelScore?.Invoke(timeSpentOnLine);
     }
+
+    public event Action<float, bool>OnUpdateLevelStatistics;
+    public void UpdateLevelStatistics(float timeSpentOnLine, bool isCodeCorrect)
+    {
+        OnUpdateLevelStatistics?.Invoke(timeSpentOnLine, isCodeCorrect);
+    }
 }
