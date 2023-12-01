@@ -18,7 +18,7 @@ public class ClientBehavior : MonoBehaviour
 
     private float _secondsToFindNewSpot = 5f;
     [SerializeField]
-    private float _maxSecondsOnLine = 8f;
+    private float _maxSecondsOnLine = 20f;
     [SerializeField]
     private float _currentSecondsOnLine;
     private NavMeshAgent _agent;
