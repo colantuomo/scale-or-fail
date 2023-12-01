@@ -9,13 +9,18 @@ public enum ClientStates
 {
     Shopping,
     WaitingOnLine,
+    WaitingOnScale,
     Leaving,
 }
 
 public class ClientBehavior : MonoBehaviour
 {
-    
+
     private float _secondsToFindNewSpot = 5f;
+    [SerializeField]
+    private float _maxSecondsOnLine = 100f;
+    [SerializeField]
+    private float _currentSecondsOnLine;
     private NavMeshAgent _agent;
     private Renderer _walkablePlane;
     private Animator _anim;
@@ -29,6 +34,9 @@ public class ClientBehavior : MonoBehaviour
     private void Start()
     {
         _anim = GetComponent<Animator>();
+        _currentSecondsOnLine = 0f;
+        _maxSecondsOnLine = 100f;
+        _secondsToFindNewSpot = 5f;
         _agent = GetComponent<NavMeshAgent>();
         StartCoroutine(ChangeDestinationRoutine());
         StartCoroutine(FinishShopping());
@@ -44,6 +52,17 @@ public class ClientBehavior : MonoBehaviour
         {
             StartWalking();
         }
+
+        if (_currentState == ClientStates.WaitingOnScale)
+        {
+            _currentSecondsOnLine += Time.deltaTime;
+        }
+
+    }
+
+    public void SetClientOnScaleState()
+    {
+        _currentState = ClientStates.WaitingOnScale;
     }
 
     IEnumerator FinishShopping()
@@ -117,5 +136,18 @@ public class ClientBehavior : MonoBehaviour
     private void StartWalking()
     {
         _anim.SetBool("isWalking", true);
+    }
+    public bool ReachedMaxWaitTime()
+    {
+        if (_currentSecondsOnLine >= _maxSecondsOnLine)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public float GetClientTimeSpentOnLine()
+    {
+        return Mathf.Min(_maxSecondsOnLine, _currentSecondsOnLine);
     }
 }
