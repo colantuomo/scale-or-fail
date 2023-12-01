@@ -128,10 +128,12 @@ public class ScaleController : MonoBehaviour
         {
             _scaleManagerLeft.PrintFeedback("success");
             GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClientTimeSpentOnLine());
+            GameEvents.Singleton.UpdateLevelStatistics(_clientLeft.GetClientTimeSpentOnLine(), true);
         }
         else
         {
             _scaleManagerLeft.PrintFeedback("failed");
+            GameEvents.Singleton.UpdateLevelStatistics(_clientLeft.GetClientTimeSpentOnLine(), false);
         }
         _clientLeft.LeaveStore(_leaveSpotL.position);
         _clientLeft = null;
@@ -155,10 +157,12 @@ public class ScaleController : MonoBehaviour
         {
             _scaleManagerRight.PrintFeedback("success");
             GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClientTimeSpentOnLine());
+            GameEvents.Singleton.UpdateLevelStatistics(_clientRight.GetClientTimeSpentOnLine(), true);
         }
         else
         {
             _scaleManagerRight.PrintFeedback("failed");
+            GameEvents.Singleton.UpdateLevelStatistics(_clientRight.GetClientTimeSpentOnLine(), false);
         }
         _clientRight.LeaveStore(_leaveSpotR.position);
         _clientRight = null;
