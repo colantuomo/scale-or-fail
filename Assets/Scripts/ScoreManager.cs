@@ -39,6 +39,7 @@ public class ScoreManager : MonoBehaviour
     private void SubscribeEvents()
     {
         GameEvents.Singleton.OnUpdateLevelScore += OnUpdateLevelScore;
+        GameEvents.Singleton.OnUpdateLevelStatistics += OnUpdateLevelStatistics;
         GameEvents.Singleton.OnFailCodeTyping += OnFailCodeTyping;
     }
 
