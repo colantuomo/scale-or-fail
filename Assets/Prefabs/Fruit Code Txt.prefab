@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Apple - 90042
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1bfbe62a42fa92408378f7e364a3d58, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c887edc657b6d7e4f95e935bec408004, type: 2}
   m_sharedMaterial: {fileID: -2802315565078849905, guid: c1bfbe62a42fa92408378f7e364a3d58,
     type: 2}
   m_fontSharedMaterials: []
@@ -133,6 +133,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 2.497985, z: -5.5329947, w: 2.4834814}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
