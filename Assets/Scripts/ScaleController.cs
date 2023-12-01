@@ -25,8 +25,6 @@ public class ScaleController : MonoBehaviour
     private bool _isLookingToScaleLeft = true;
 
     [SerializeField]
-    private bool _hasNumericKeyboard = true;
-    [SerializeField]
     private ParticleSystem _puffFX, _fireworkFX;
 
     void Update()
@@ -34,11 +32,6 @@ public class ScaleController : MonoBehaviour
         SwitchScaleControl();
         HandleFinishShopping();
         ScaleKeyboardManager();
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            print("Pressed B");
-            GameEvents.Singleton.FailCodeTyping();
-        }
     }
 
     private void ScaleKeyboardManager()
@@ -47,14 +40,8 @@ public class ScaleController : MonoBehaviour
 
         var scaleManager = _isLookingToScaleLeft ? _scaleManagerLeft : _scaleManagerRight;
 
-        if (_hasNumericKeyboard)
-        {
-            HandleScaleNumericKeyboard(scaleManager);
-        }
-        else
-        {
-            HandleScaleKeyboard(scaleManager);
-        }
+        HandleScaleNumericKeyboard(scaleManager);
+        HandleScaleKeyboard(scaleManager);
 
         //if (Input.GetKeyDown(KeyCode.Space)) scaleManager.Clear();
         if (Input.GetKeyDown(KeyCode.Backspace)) scaleManager.RemoveLastDigit();
@@ -129,7 +116,17 @@ public class ScaleController : MonoBehaviour
     private void HandleLeftClientLeavingLine()
     {
         GameEvents.Singleton.UpdateClientsLines(true);
-        GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClient(), _scaleManagerLeft.GetScaleCode(), _clientLeft.GetClientTimeSpentOnLine());
+        if (TypedCodeEqualsFruitCode(_scaleManagerLeft.GetScaleCode(), _clientLeft.GetClient().Fruit.Code))
+        {
+            _scaleManagerLeft.PrintFeedback("success");
+            GameEvents.Singleton.UpdateLevelScore(_clientLeft.GetClientTimeSpentOnLine());
+            GameEvents.Singleton.UpdateLevelStatistics(_clientLeft.GetClientTimeSpentOnLine(), true);
+        }
+        else
+        {
+            _scaleManagerLeft.PrintFeedback("failed");
+            GameEvents.Singleton.UpdateLevelStatistics(_clientLeft.GetClientTimeSpentOnLine(), false);
+        }
         _clientLeft.LeaveStore(_leaveSpotL.position);
         _clientLeft = null;
         _isLookingToScaleLeft = false;
@@ -148,7 +145,17 @@ public class ScaleController : MonoBehaviour
     private void HandleRightClientLeavingLine()
     {
         GameEvents.Singleton.UpdateClientsLines(false);
-        GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClient(), _scaleManagerRight.GetScaleCode(), _clientRight.GetClientTimeSpentOnLine());
+        if (TypedCodeEqualsFruitCode(_scaleManagerRight.GetScaleCode(), _clientRight.GetClient().Fruit.Code))
+        {
+            _scaleManagerRight.PrintFeedback("success");
+            GameEvents.Singleton.UpdateLevelScore(_clientRight.GetClientTimeSpentOnLine());
+            GameEvents.Singleton.UpdateLevelStatistics(_clientRight.GetClientTimeSpentOnLine(), true);
+        }
+        else
+        {
+            _scaleManagerRight.PrintFeedback("failed");
+            GameEvents.Singleton.UpdateLevelStatistics(_clientRight.GetClientTimeSpentOnLine(), false);
+        }
         _clientRight.LeaveStore(_leaveSpotR.position);
         _clientRight = null;
         _isLookingToScaleLeft = true;
@@ -227,4 +234,14 @@ public class ScaleController : MonoBehaviour
         Instantiate(_puffFX, _currentRightFruit.position, Quaternion.identity);
     }
 
+    private bool TypedCodeEqualsFruitCode(string typedCode, int fruitCode)
+    {
+        int integerCode = 0;
+        int.TryParse(typedCode, out integerCode);
+        if (integerCode == fruitCode)
+        {
+            return true;
+        }
+        return false;
+    }
 }

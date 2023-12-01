@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScaleManager : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text _keyboardScreen;
+    private TMP_Text _keyboardScreen, _feedbackScreenText;
+    [SerializeField]
+    private CanvasRenderer _feedbackScreen;
     [SerializeField]
     private int _maxDigits = 5;
     [SerializeField]
@@ -41,6 +44,20 @@ public class ScaleManager : MonoBehaviour
     public Transform PutFruitOnScaleSpot(FruitSO fruit)
     {
         return Instantiate(fruit.Model, _fruitSpot.position, Quaternion.identity).transform;
+    }
+
+    public void PrintFeedback(string feedbackType)
+    {
+        if (feedbackType == "success")
+        {
+            _feedbackScreen.GetComponent<Image>().color = Color.green;
+            _feedbackScreenText.text = "Correct!";
+        }
+        else if (feedbackType == "failed")
+        {
+            _feedbackScreen.GetComponent<Image>().color = Color.red;
+            _feedbackScreenText.text = "Incorrect!";
+        }
     }
 
 }
